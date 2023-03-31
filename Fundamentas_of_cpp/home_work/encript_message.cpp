@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <math.h>
+#include <string>
 using namespace std;
 int encrypt(int number){
     int dummy = number;
@@ -38,23 +39,29 @@ int decrypt(int number){
         ans += cur_dig;
         
     }
-    cout<<"decrypted is "<<ans;
+    cout<<"decrypted is "<<ans<<endl;
     return 0;
 }
 
 int main() {
-    cout<<"enter a 4 digit number"<<endl;
-    int number;
-    cin>>number;
-    int choose;
-    cout<<"1 for encrypt 2 for decrept"<<endl;
-    cin>>choose;
-    if(choose == 1){
-        encrypt(number);
-    }
-    else{
-        decrypt(number);
-    }
+    program:
+        cout<<"enter a 4 digit number"<<endl;
+        int number;
+        cin>>number;
+        int choose;
+        cout<<"1 for encrypt 2 for decrept"<<endl;
+        cin>>choose;
+        if(choose == 1){
+            encrypt(number);
+        }
+        else{
+            decrypt(number);
+        }
+        char cont;
+        cout<<"Do you want to continue y/n: ";
+        cin>> cont;
+        if (cont == 'y') goto program;
+        
     
     
    
