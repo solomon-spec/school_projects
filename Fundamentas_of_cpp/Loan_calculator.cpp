@@ -19,7 +19,7 @@ int main() {
    float this_month_interest;
    float remaining_month_payment;
    int month = 1;
-   
+   cout<<"month\t\tmonthly payment\t\tremaining loan"<<endl;
    while (loan > 0){
        
        this_month_interest = (loan * interest)/12;
@@ -33,10 +33,9 @@ int main() {
            loan = 0;
        }
        
-       cout<<"For month "<<month<<endl;
-     
-        cout<<"\tYour monthly payment is "<<monthly_payment<<" BIRR"<<endl;
-        cout<<"\tYour remaining loan is " << loan<<" BIRR"<<endl  ;
+        cout<<"month "<<month<<"\t\t";
+        cout<<monthly_payment<<" BIRR"<<"\t\t";
+        cout<<loan<<" BIRR"<<endl  ;
         month += 1;
        
    }
