@@ -1,0 +1,53 @@
+// Output a string describing the program
+print "This program takes a degree from 0 - 999 and returns the closest degree that doesn't have 1, 4, or 7 in its digits"
+
+// Start a loop for the program
+loop:
+  // Prompt the user for a temperature value
+  print "Enter temperature: "
+  read temperature
+  
+  // Make a copy of the temperature value
+  set dummy_temp = temperature
+  
+  // Loop through each digit of the temperature value
+  for i from 2 to 0:
+    // Get the i-th digit from the left
+    set digit = integer division of dummy_temp by 10^i
+    
+    // Check if the digit is 1, 4, or 7
+    if digit equals 1 or digit equals 4 or digit equals 7:
+      // Calculate the two closest values to the input number without 1, 4, or 7
+      set ans[0] = (integer division of temperature by 10^i) * 10^i + 10^i
+      set ans[1] = (integer division of temperature by 10^i) * 10^i - 1
+      
+      // Output the two values and ask the user if they want to exit
+      print ans[0], " ", ans[1]
+      print "Do you want to exit? (y/n)"
+      read choice
+      
+      // If the user wants to exit, end the program
+      if choice equals "y" or choice equals "Y":
+        end
+      
+      // Otherwise, start the loop again
+      goto loop
+    end if
+    
+    // Update the dummy temperature value for the next digit
+    set dummy_temp = dummy_temp - digit * 10^i
+  end for
+  
+  // If none of the digits are 1, 4, or 7, output the input temperature value
+  print temperature
+  
+  // Ask the user if they want to exit
+  print "Do you want to exit? (y/n)"
+  read choice
+  
+  // If the user wants to exit, end the program
+  if choice equals "y" or choice equals "Y":
+    end
+  
+  // Otherwise, start the loop again
+  goto loop
