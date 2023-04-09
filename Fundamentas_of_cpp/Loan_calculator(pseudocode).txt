@@ -1,0 +1,60 @@
+// Output a string describing the program
+print "This program takes loan amount and interest rate as an input and calculates the monthly payment and the remaining loan for each month"
+
+// Start a loop for the program
+loop:
+  // Prompt the user for the loan amount and interest rate
+  print "Enter the loan amount:"
+  read loan
+  print "Enter the interest rate:"
+  read interest
+  
+  // Convert the interest rate from percentage to decimal
+  set interest = interest / 100
+  
+  // Calculate the monthly payment as 1/20th of the loan amount
+  set monthly_payment = loan / 20
+  
+  // Initialize variables for the current month's interest and remaining payment
+  set this_month_interest = 0
+  set remaining_month_payment = 0
+  
+  // Initialize the month counter to 1
+  set month = 1
+  
+  // Output headers for the table of monthly payments and remaining loan amounts
+  print "month\tmonthly payment\tremaining loan"
+  
+  // Start a loop to calculate the monthly payments and remaining loan amounts
+  while loan > 0:
+    // Calculate the interest for this month
+    set this_month_interest = (loan * interest) / 12
+    
+    // Calculate the remaining payment for this month
+    set remaining_month_payment = monthly_payment - this_month_interest
+    
+    // If the remaining loan is greater than the remaining payment, subtract the remaining payment from the loan
+    if loan >= remaining_month_payment:
+      set loan = loan - remaining_month_payment
+    // Otherwise, set the remaining payment to the loan amount and set the loan amount to zero
+    else:
+      set monthly_payment = loan
+      set loan = 0
+    
+    // Output the month number, monthly payment, and remaining loan amount for this month
+    print "month ", month, "\t", monthly_payment, " BIRR\t\t", loan, " BIRR"
+    
+    // Increment the month counter
+    set month = month + 1
+  end while
+  
+  // Ask the user if they want to exit
+  print "Do you want to exit? (y/n)"
+  read choice
+  
+  // If the user wants to exit, end the program
+  if choice equals "y" or choice equals "Y":
+    end
+  
+  // Otherwise, start the loop again
+  goto loop
