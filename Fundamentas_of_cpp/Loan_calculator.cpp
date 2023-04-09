@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
+#include <iomanip>
 using namespace std;
+void calculate_loan(float* loan, float* interest, float* this_month_interest, float* monthly_payment, float* remaining_monthly_payment);
 
 int main() {
    string def_program = "This program takes loan amount and interest rate as an input and calculates the monthly payment and the remening loan for each month";
@@ -19,24 +21,15 @@ int main() {
    float this_month_interest;
    float remaining_month_payment;
    int month = 1;
-   cout<<"month\t monthly payment\t remaining loan"<<endl;
-   while (loan > 0){
-       
-       this_month_interest = (loan * interest)/12;
-       remaining_month_payment = monthly_payment - this_month_interest;
-       
-       if (loan >= remaining_month_payment){
-           loan -= remaining_month_payment;
-       }
-       else{
-           monthly_payment = loan;
-           loan = 0;
-       }
-       
-        cout<<"month "<<month<<" \t";
-        cout<<monthly_payment<<" BIRR\t\t\t";
-        cout<<loan<<" BIRR"<<endl  ;
-        month += 1;
+   cout << "\nMONTH \tMONTHLY PAYMENT \tREMAINING LOAN\n";
+   cout << "----------------------------------------\n";
+    while (loan > 0){
+        calculate_loan(&loan, &interest, &this_month_interest, &monthly_payment, &remaining_month_payment);
+        
+        cout << fixed << setprecision(2) << setw(3) << month;
+        cout << fixed << setprecision(2) << setw(17) << monthly_payment;
+        cout << fixed << setprecision(2) << setw(18) << loan << endl;
+      month += 1;
        
    }
   char choice;
@@ -45,4 +38,21 @@ int main() {
   if(choice != 'Y' && choice != 'y')
     goto program;
    
+}
+
+void calculate_loan(float* loan, float* interest, float* this_month_interest, float* monthly_payment, float* remaining_monthly_payment) {
+    
+    *this_month_interest = (*loan * *interest) / 12;
+
+    
+    *remaining_monthly_payment = *monthly_payment - *this_month_interest;
+
+    
+    if (*loan >= *remaining_monthly_payment) {
+        *loan -= *remaining_monthly_payment;
+    }
+    else {
+        *monthly_payment = *loan;
+        *loan = 0;
+    }
 }
