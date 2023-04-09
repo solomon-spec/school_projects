@@ -16,11 +16,14 @@ int main() {
    float interest;
    cin>>interest;
    interest /= 100;
-   
    float monthly_payment = loan/20;
    float this_month_interest;
    float remaining_month_payment;
    int month = 1;
+   if (interest >= 0.6){
+      cout <<"This loan can not be paid off forever since the interest rate is greater than or equal to the paying rate";
+      goto end_program;
+   }
    cout << "\nMONTH \tMONTHLY PAYMENT \tREMAINING LOAN\n";
    cout << "----------------------------------------\n";
     while (loan > 0){
@@ -32,11 +35,12 @@ int main() {
       month += 1;
        
    }
-  char choice;
-  cout<<"\nDo You Want to Exit (y/n)\t";
-  cin>>choice;
-  if(choice != 'Y' && choice != 'y')
-    goto program;
+   end_program:
+      char choice;
+      cout<<"\nDo You Want to Exit (y/n)\t";
+      cin>>choice;
+      if(choice != 'Y' && choice != 'y')
+         goto program;
    
 }
 
