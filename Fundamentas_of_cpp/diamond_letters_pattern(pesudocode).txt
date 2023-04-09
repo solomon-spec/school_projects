@@ -3,9 +3,9 @@ Set i = 0
 While i < 15, do the following:
     Set j = 0
     While j < 15, do the following:
-        //calculate the row distance from the center of the rows
+        //calculate the row distance from the nearest edge
         Set num = 7 - absolute value of (7 - j)
-        //calculate the column distance from the center of the columns
+        //calculate the column distance from the nearest edge
         Set num2 = 7 - absolute value of (7 - i)
         //if sum of two distances is less than or equal to 7 print 
         If num + num2 is less than or equal to 7, then print the character represented by the ASCII code (num + 65) followed by a space
