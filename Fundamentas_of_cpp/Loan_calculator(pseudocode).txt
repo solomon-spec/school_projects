@@ -7,7 +7,6 @@ function calculate_loan(loan, interest, this_month_interest, monthly_payment, re
     else
         monthly_payment = loan
         loan = 0
-    end if
 end function
 
 // Main program
@@ -17,9 +16,9 @@ print def_program
 // Loop to get user inputs
 loop
     print "Enter the loan amount"
-    loan = input()
+    input loan
     print "Enter the interest rate"
-    interest = input() / 100
+    input interest / 100
     monthly_payment = loan / 20
     this_month_interest = 0
     remaining_monthly_payment = 0
@@ -28,8 +27,8 @@ loop
     // Check if the loan can ever be paid off
     if interest >= 0.6 then
         print "This loan can not be paid off forever since the interest rate is greater than or equal to the paying rate"
-        break
-    end if
+        goto exit_question
+    
     
     // Print header for output table
     print "MONTH \tMONTHLY PAYMENT \tREMAINING LOAN"
@@ -40,13 +39,13 @@ loop
         calculate_loan(loan, interest, this_month_interest, monthly_payment, remaining_monthly_payment)
         print month + "\t" + monthly_payment + "\t" + loan
         month = month + 1
-    end while
     
     // Ask user if they want to exit
+    exit_question:
     print "Do you want to exit (y/n)"
     choice = input()
     if choice == "y" or choice == "Y" then
         break
-    end if
-end loop
+    else
+        goto loop
 
