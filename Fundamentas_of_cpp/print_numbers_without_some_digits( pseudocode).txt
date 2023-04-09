@@ -1,53 +1,51 @@
-// Output a string describing the program
-print "This program takes a degree from 0 - 999 and returns the closest degree that doesn't have 1, 4, or 7 in its digits"
+FUNCTION closest_temperature(temperature, ans)
 
-// Start a loop for the program
-loop:
-  // Prompt the user for a temperature value
-  print "Enter temperature: "
-  read temperature
-  
-  // Make a copy of the temperature value
-  set dummy_temp = temperature
-  
-  // Loop through each digit of the temperature value
-  for i from 2 to 0:
-    // Get the i-th digit from the left
-    set digit = integer division of dummy_temp by 10^i
+    DECLARE dummy_temp = temperature
+    // Loop over each digit of the temperature, from left to right
+    FOR i = 2 DOWNTO 0
+        // Extract the i-th digit of the dummy temperature
+        DECLARE dig = FLOOR(dummy_temp / 10^i)
+        // Check if the digit is 1, 4, or 7
+        IF dig == 1 OR dig == 4 OR dig == 7 THEN
+            // Calculate the closest temperature above and below the input temperature
+            ans[0] = FLOOR(temperature / 10^i) * 10^i + 10^i
+            ans[1] = FLOOR(temperature / 10^i) * 10^i - 1
+            // Edit the answer array in place
+            RETURN
+        // Remove the i-th digit from the dummy temperature
+        SET dummy_temp = dummy_temp - dig * 10^i
+        
+    // If none of the digits are 1, 4, or 7, the input temperature is the closest
+    ans[0] = temperature
+    ans[1] = temperature
+END FUNCTION
+
+FUNCTION main()
+    // Print the program description
+    OUTPUT "This program takes a degree from 0-999 and returns the closest degree that doesn't have 1, 4 & 7 in its digit"
+    // Loop until the user chooses to exit
+    LOOP
+        // Prompt the user for input
+        DECLARE temperature = 0
+        OUTPUT "Enter temperature: "
+        INPUT temperature
+        // Call the closest_temperature function to get the closest temperature without 1, 4, or 7 digits
+        DECLARE ans as a pointer to an array of 2 integers
+        CALL closest_temperature(temperature, ans)
+        // Print the closest temperature(s) found
+        IF ans[0] != ans[1] THEN
+            OUTPUT "Closest temperatures that don't contain 1, 4, or 7: ", ans[0], " ", ans[1]
+        ELSE
+            OUTPUT "Closest temperature that don't contain 1, 4, or 7: ", ans[0]
     
-    // Check if the digit is 1, 4, or 7
-    if digit equals 1 or digit equals 4 or digit equals 7:
-      // Calculate the two closest values to the input number without 1, 4, or 7
-      set ans[0] = (integer division of temperature by 10^i) * 10^i + 10^i
-      set ans[1] = (integer division of temperature by 10^i) * 10^i - 1
-      
-      // Output the two values and ask the user if they want to exit
-      print ans[0], " ", ans[1]
-      print "Do you want to exit? (y/n)"
-      read choice
-      
-      // If the user wants to exit, end the program
-      if choice equals "y" or choice equals "Y":
-        end
-      
-      // Otherwise, start the loop again
-      goto loop
-    end if
-    
-    // Update the dummy temperature value for the next digit
-    set dummy_temp = dummy_temp - digit * 10^i
-  end for
-  
-  // If none of the digits are 1, 4, or 7, output the input temperature value
-  print temperature
-  
-  // Ask the user if they want to exit
-  print "Do you want to exit? (y/n)"
-  read choice
-  
-  // If the user wants to exit, end the program
-  if choice equals "y" or choice equals "Y":
-    end
-  
-  // Otherwise, start the loop again
-  goto loop
+        // Prompt the user to exit or continue
+        DECLARE choice = ""
+        OUTPUT "Do you want to exit? (y/n) "
+        INPUT choice
+        // If the user chooses to exit, break out of the loop and end the program
+        IF choice == 'y' OR choice == 'Y' THEN
+            EXIT LOOP
+        ELSE
+          GOTO LOOP
+    END LOOP
+END FUNCTION
