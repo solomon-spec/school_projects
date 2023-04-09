@@ -14,7 +14,7 @@ int main() {
   
    cout<<"Inter the interest rate\t";
    float interest;
-   cin>>interest;
+   cin>>interest(%);
    interest /= 100;
    float monthly_payment = loan/20;
    float this_month_interest;
