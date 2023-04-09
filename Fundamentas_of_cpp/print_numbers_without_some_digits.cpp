@@ -16,7 +16,10 @@ int main() {
     program:
     cout << "Enter temperature: ";
     cin >> temperature;
-    
+    if ((temperature < 0 )|| (temperature >999)){
+        cout<<"Wrong input"<<endl;
+        goto program;
+    }
     int ans[2];
     closest_temperature(temperature, ans);
     if (ans[0] != ans[1]){
