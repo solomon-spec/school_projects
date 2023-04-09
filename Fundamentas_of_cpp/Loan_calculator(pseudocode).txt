@@ -1,67 +1,52 @@
-# This program calculates the monthly payment and remaining loan for a given loan amount and interest rate.
-
-# Define a function to calculate the loan for each month
+// Define a function that calculates the loan payment
 function calculate_loan(loan, interest, this_month_interest, monthly_payment, remaining_monthly_payment)
-    # Calculate the interest payment for this month
     this_month_interest = loan * interest / 12
-    # Subtract the interest payment from the monthly payment to get the remaining payment
     remaining_monthly_payment = monthly_payment - this_month_interest
-    # If the loan is greater than or equal to the remaining payment, subtract it from the loan
     if loan >= remaining_monthly_payment then
         loan = loan - remaining_monthly_payment
-    # Otherwise, set the monthly payment to be equal to the remaining loan and set the loan amount to zero
     else
         monthly_payment = loan
         loan = 0
     end if
 end function
 
-# Define the main function
-main()
-    # Print a brief description of the program
-    def_program = "This program takes loan amount and interest rate as an input and calculates the monthly payment and the remaining loan for each month"
-    print def_program
+// Main program
+def_program = "This program takes loan amount and interest rate as an input and calculates the monthly payment and the remaining loan for each month"
+print def_program
+
+// Loop to get user inputs
+loop
+    print "Enter the loan amount"
+    loan = input()
+    print "Enter the interest rate"
+    interest = input() / 100
+    monthly_payment = loan / 20
+    this_month_interest = 0
+    remaining_monthly_payment = 0
+    month = 1
     
-    # Enter an infinite loop to prompt the user for input
-    loop
-        # Prompt the user to enter the loan amount
-        print "Enter the loan amount"
-        loan = input()
-        # Prompt the user to enter the interest rate and convert it to a decimal
-        print "Enter the interest rate"
-        interest = input() / 100
-        # Calculate the monthly payment as one-twentieth of the loan amount
-        monthly_payment = loan / 20
-        # Initialize the variables for this month's interest payment and remaining payment
-        this_month_interest = 0
-        remaining_monthly_payment = 0
-        # Initialize the month counter
-        month = 1
-        # Check if the interest rate is greater than or equal to 60%
-        if interest >= 0.6 then
-            # If so, print a message indicating that the loan cannot be paid off
-            print "This loan can not be paid off forever since the interest rate is greater than or equal to the paying rate"
-            # Break the loop to exit the program
-            break
-        end if
-        # Print a header for the loan repayment table
-        print "MONTH \tMONTHLY PAYMENT \tREMAINING LOAN"
-        print "----------------------------------------"
-        # Enter a loop that iterates until the loan is completely paid off
-        while loan > 0 do
-            # Call the calculate_loan function to calculate the loan for this month
-            calculate_loan(loan, interest, this_month_interest, monthly_payment, remaining_monthly_payment)
-            # Print the current month, monthly payment, and remaining loan
-            print month + "\t" + monthly_payment + "\t" + loan
-            # Increment the month counter
-            month = month + 1
-        end while
-        # Prompt the user if they want to exit the program
-        print "Do you want to exit (y/n)"
-        choice = input()
-        # If the user enters 'y' or 'Y', break the loop to exit the program
-        if choice == "y" or choice == "Y" then
-            break
-        end if
-    end loop
-end function
+    // Check if the loan can ever be paid off
+    if interest >= 0.6 then
+        print "This loan can not be paid off forever since the interest rate is greater than or equal to the paying rate"
+        break
+    end if
+    
+    // Print header for output table
+    print "MONTH \tMONTHLY PAYMENT \tREMAINING LOAN"
+    print "----------------------------------------"
+    
+    // Loop through each month and calculate the loan payment
+    while loan > 0 do
+        calculate_loan(loan, interest, this_month_interest, monthly_payment, remaining_monthly_payment)
+        print month + "\t" + monthly_payment + "\t" + loan
+        month = month + 1
+    end while
+    
+    // Ask user if they want to exit
+    print "Do you want to exit (y/n)"
+    choice = input()
+    if choice == "y" or choice == "Y" then
+        break
+    end if
+end loop
+
